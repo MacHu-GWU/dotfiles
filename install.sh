@@ -1,4 +1,16 @@
 #!/bin/bash
+set -e
+
+DOTFILES="$(cd "$(dirname "$0")" && pwd)"
+OS="$(uname -s)"
+
+if [ "$OS" = "Linux" ]; then
+  # Linux 装 starship 和 mise
+  command -v starship &>/dev/null || \
+    curl -sS https://starship.rs/install.sh | sh -s -- --yes
+  command -v mise &>/dev/null || \
+    curl https://mise.run | sh
+fi
 
 # echo "🚀 Setting up development environment..."
 
