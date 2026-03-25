@@ -21,3 +21,19 @@ curl https://mise.run | sh
 ```
 
 官网：https://mise.jdx.dev/
+
+## 配置文件说明
+
+```
+dotfiles/
+├── .bashrc              # Bash shell 配置
+├── .zshrc               # Zsh shell 配置
+├── .config/
+│   └── starship.toml    # Starship 提示符配置
+├── install.sh           # 安装脚本
+└── README.md
+```
+
+## GitHub Codespaces 使用
+
+在 Codespaces 中，dotfiles 会自动被克隆和执行。
