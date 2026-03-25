@@ -1,7 +1,6 @@
 # User Settings
 .claude/claude-code-messages.md
 .claude/settings.local.json
-.claude/skills/write-agent-skill
 .idea
 tmp
 
