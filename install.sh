@@ -5,28 +5,33 @@ DOTFILES="$(cd "$(dirname "$0")" && pwd)"
 OS="$(uname -s)"
 
 if [ "$OS" = "Linux" ]; then
-  # Linux 装 starship 和 mise
-  command -v starship &>/dev/null || \
+  echo "🔧 Installing tools for Linux..."
+
+  # 安装 starship
+  if ! command -v starship &>/dev/null; then
+    echo "📦 Installing starship..."
     curl -sS https://starship.rs/install.sh | sh -s -- --yes
-  command -v mise &>/dev/null || \
+  else
+    echo "✅ starship already installed"
+  fi
+
+  # 安装 mise
+  if ! command -v mise &>/dev/null; then
+    echo "📦 Installing mise..."
     curl https://mise.run | sh
+  else
+    echo "✅ mise already installed"
+  fi
+
+  # 确保 PATH 包含安装路径
+  export PATH="$HOME/.local/bin:$PATH"
+
+  # 验证安装
+  echo ""
+  echo "✅ Verification:"
+  command -v starship &>/dev/null && echo "  starship: $(starship --version)" || echo "  starship: ❌ not found"
+  command -v mise &>/dev/null && echo "  mise: $(mise --version)" || echo "  mise: ❌ not found"
 fi
 
-# echo "🚀 Setting up development environment..."
-
-# 安装 uv
-# echo "📦 Installing uv..."
-# curl -LsSf https://astral.sh/uv/install.sh | sh
-
-# 添加 uv 到 PATH
-# echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
-
-# 安装其他常用工具
-echo "📦 Installing additional tools..."
-
-# 验证安装
-# echo "✅ Verification:"
-# source ~/.bashrc
-# ~/.local/bin/uv --version || echo "uv installation pending (will be available after restart)"
-
+echo ""
 echo "🎉 Development environment setup complete!"

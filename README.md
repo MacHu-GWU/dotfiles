@@ -26,6 +26,7 @@ curl https://mise.run | sh
 
 ```
 dotfiles/
+├── .bash_profile        # Bash 登录 shell 配置（自动加载 .bashrc）
 ├── .bashrc              # Bash shell 配置
 ├── .zshrc               # Zsh shell 配置
 ├── .config/
@@ -37,3 +38,10 @@ dotfiles/
 ## GitHub Codespaces 使用
 
 在 Codespaces 中，dotfiles 会自动被克隆和执行。
+
+### 为什么需要 .bash_profile？
+
+- **登录 shell**（Codespaces 默认）→ 读取 `.bash_profile`
+- **交互式 shell**（运行 `bash` 命令）→ 读取 `.bashrc`
+
+`.bash_profile` 会自动加载 `.bashrc`，确保所有配置在两种情况下都生效。

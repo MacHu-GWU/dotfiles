@@ -1,5 +1,12 @@
+# Add local bin to PATH
+export PATH="$HOME/.local/bin:$PATH"
+
 # starship.rs: https://starship.rs/
-eval "$(starship init bash)"
+if command -v starship &> /dev/null; then
+    eval "$(starship init bash)"
+fi
 
 # mise-en-place: https://mise.jdx.dev/
-eval "$(mise activate bash)"
+if command -v mise &> /dev/null; then
+    eval "$(mise activate bash)"
+fi
