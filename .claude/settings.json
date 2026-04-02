@@ -29,7 +29,9 @@
             "Read(========== Web Search ==========)",
             "WebSearch",
             "Read(========== Web Fetch ==========)",
-            "WebFetch(domain:raw.githubusercontent.com)"
+            "WebFetch(domain:raw.githubusercontent.com)",
+            "WebFetch(domain:docs.github.com)",
+            "WebFetch(domain:containers.dev)"
         ]
     }
 }

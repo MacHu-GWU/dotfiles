@@ -4,7 +4,36 @@ set -e
 DOTFILES="$(cd "$(dirname "$0")" && pwd)"
 OS="$(uname -s)"
 
+# 检查是否应该跳过 dotfiles 安装
+# 如果项目根目录有 .skip-dotfiles 文件，则跳过
+if [ -f "/workspaces/$(basename $PWD)/.skip-dotfiles" ] || [ -f "$HOME/workspace/.skip-dotfiles" ]; then
+  echo "⏭️  Found .skip-dotfiles marker, skipping dotfiles installation"
+  exit 0
+fi
+
+echo "🚀 Setting up dotfiles..."
+
+# 复制配置文件到 home 目录（而不是软链接）
+# 这样可以在 Codespaces 中直接修改，不会影响 dotfiles repo
+echo "📋 Copying dotfiles to home directory..."
+
+# 复制 shell 配置文件
+for file in .bashrc .bash_profile .zshrc; do
+  if [ -f "$DOTFILES/$file" ]; then
+    cp -f "$DOTFILES/$file" "$HOME/$file"
+    echo "  ✅ Copied $file"
+  fi
+done
+
+# 复制 .config 目录
+if [ -d "$DOTFILES/.config" ]; then
+  mkdir -p "$HOME/.config"
+  cp -rf "$DOTFILES/.config/"* "$HOME/.config/"
+  echo "  ✅ Copied .config directory"
+fi
+
 if [ "$OS" = "Linux" ]; then
+  echo ""
   echo "🔧 Installing tools for Linux..."
 
   # 安装 starship
@@ -35,3 +64,4 @@ fi
 
 echo ""
 echo "🎉 Development environment setup complete!"
+echo "💡 Tip: You can now freely modify config files in your home directory"
